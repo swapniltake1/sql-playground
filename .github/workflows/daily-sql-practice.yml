@@ -1,0 +1,60 @@
+name: Daily SQL Practice
+
+on:
+  schedule:
+    - cron: "30 13 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  daily-sql:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add daily SQL practice
+        shell: bash
+        run: |
+          mkdir -p daily
+          DAY=$(date -u +%Y-%m-%d)
+          FILE="daily/sql-\${DAY}.sql"
+
+          if [ -f "\${FILE}" ]; then
+            echo "SQL file already exists for \${DAY}; nothing to do."
+            exit 0
+          fi
+
+          cat > "\${FILE}" <<'SQL'
+-- Daily SQL Practice
+-- Topic: Window Function
+-- Created automatically by GitHub Actions
+
+WITH ranked_products AS (
+    SELECT
+        product_id,
+        category,
+        price,
+        RANK() OVER (
+            PARTITION BY category
+            ORDER BY price DESC
+        ) AS price_rank
+    FROM products
+)
+SELECT
+    product_id,
+    category,
+    price,
+    price_rank
+FROM ranked_products
+WHERE price_rank <= 3
+ORDER BY category, price_rank;
+SQL
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "\${FILE}"
+          git commit -m "chore: add daily SQL practice for \${DAY}"
+          git push
