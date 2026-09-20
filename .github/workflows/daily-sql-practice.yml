@@ -1,6 +1,7 @@
 name: Daily SQL Practice
 
 on:
+  push:
   workflow_dispatch:
   schedule:
     - cron: '37 13 * * *'
