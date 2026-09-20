@@ -1,12 +1,10 @@
 name: Daily SQL Practice
 
 on:
-  schedule:
-    - cron: '7 19 * * *'
-      timezone: 'Asia/Kolkata'
-    - cron: '37 19 * * *'
-      timezone: 'Asia/Kolkata'
   workflow_dispatch:
+  schedule:
+    - cron: '37 13 * * *'
+    - cron: '7 14 * * *'
 
 permissions:
   contents: write
@@ -17,52 +15,41 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Create daily SQL practice
-        shell: bash
         run: |
-          set -euo pipefail
+          set -e
           mkdir -p daily
-          DAY=$(date +%Y-%m-%d)
-          HOUR=$(date +%H)
-          MINUTE=$(date +%M)
-          FILE="daily/sql-$DAY-$HOUR$MINUTE.sql"
+          DAY=$(date -u +%Y-%m-%d)
+          TIME=$(date -u +%H%M)
+          FILE="daily/sql-${DAY}-${TIME}.sql"
+          cat > "$FILE" <<'SQL'
+-- Daily SQL Practice
+-- Topic: Window Functions
 
-          if [[ "$HOUR" == "19" && "$MINUTE" -lt "30" ]]; then
-            TOPIC="Window Functions"
-            SQL_QUERY='WITH ranked_products AS (
-    SELECT product_id, category, price,
-           RANK() OVER (PARTITION BY category ORDER BY price DESC) AS price_rank
+WITH ranked_products AS (
+    SELECT
+        product_id,
+        category,
+        price,
+        RANK() OVER (
+            PARTITION BY category
+            ORDER BY price DESC
+        ) AS price_rank
     FROM products
 )
-SELECT product_id, category, price, price_rank
+SELECT
+    product_id,
+    category,
+    price,
+    price_rank
 FROM ranked_products
 WHERE price_rank <= 3
-ORDER BY category, price_rank;'
-          else
-            TOPIC="CTE and Aggregation"
-            SQL_QUERY='WITH category_sales AS (
-    SELECT category, SUM(amount) AS total_sales, COUNT(*) AS order_count
-    FROM orders
-    GROUP BY category
-)
-SELECT category, total_sales, order_count
-FROM category_sales
-ORDER BY total_sales DESC;'
-          fi
-
-          {
-            echo "-- Daily SQL Practice"
-            echo "-- Date: $DAY"
-            echo "-- Topic: $TOPIC"
-            echo
-            printf '%s\n' "$SQL_QUERY"
-          } > "$FILE"
+ORDER BY category, price_rank;
+SQL
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "$FILE"
-          git commit -m "chore: add daily SQL practice $DAY-$HOUR$MINUTE"
+          git commit -m "chore: add daily SQL practice ${DAY}-${TIME}"
           git push origin HEAD:main
