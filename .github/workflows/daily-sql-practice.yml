@@ -20,10 +20,11 @@ jobs:
       - name: Create daily SQL practice
         run: |
           set -e
+          git pull --rebase origin main
           mkdir -p daily
           DAY=$(date -u +%Y-%m-%d)
           TIME=$(date -u +%H%M)
-          FILE="daily/sql-${DAY}-${TIME}.sql"
+          FILE="daily/sql-${DAY}-${TIME}-${GITHUB_RUN_ID}.sql"
           cat > "$FILE" <<'SQL'
           -- Daily SQL Practice
           -- Topic: Window Functions
@@ -52,6 +53,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "$FILE"
-          git commit -m "chore: add daily SQL practice ${DAY}-${TIME}"
-          git pull --rebase origin main
+          git commit -m "chore: add daily SQL practice ${DAY}-${TIME}-${GITHUB_RUN_ID}"
           git push origin HEAD:main
