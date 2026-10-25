@@ -69,3 +69,15 @@ If you want to add more interview questions, optimized solutions, or database-sp
 
 Use this repository for learning and interview preparation.
 Add a formal license file (`LICENSE`) if you plan to distribute this project publicly.
+
+
+## Banking SQL Practice
+
+Practice SQL with a realistic banking dataset covering customers, accounts, and transactions.
+
+- [Banking SQL Practice Q01-Q15](banking-sql-practice-questions.sql) — setup script, sample data, questions, and commented solutions.
+- [Extra Banking SQL Practice Q16-Q40](extra-banking-sql-practice-questions.sql) — 25 additional questions and commented answer queries.
+
+**How to run:** First run `banking-sql-practice-questions.sql` in PostgreSQL to create and seed the tables. Then try the questions in `extra-banking-sql-practice-questions.sql`. Solutions are commented out so you can attempt each query before checking the answer.
+
+The exercises cover filtering, joins, aggregation, CTEs, subqueries, anti-joins, window functions, ranking, running totals, and banking analytics. SQL dialect differences may require small syntax adjustments.
