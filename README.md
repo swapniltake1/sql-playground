@@ -81,3 +81,11 @@ Practice SQL with a realistic banking dataset covering customers, accounts, and 
 **How to run:** First run `banking-sql-practice-questions.sql` in PostgreSQL to create and seed the tables. Then try the questions in `extra-banking-sql-practice-questions.sql`. Solutions are commented out so you can attempt each query before checking the answer.
 
 The exercises cover filtering, joins, aggregation, CTEs, subqueries, anti-joins, window functions, ranking, running totals, and banking analytics. SQL dialect differences may require small syntax adjustments.
+
+
+### Data Engineering SQL Practice
+
+- [Data Engineering SQL Practice](data-engineering-sql-practice.sql) — 20 hands-on questions using sample customer, order, and pipeline-run data.
+- Topics include deduplication with `ROW_NUMBER()`, incremental-load filters, late-arriving data, NULL checks, referential integrity, pipeline monitoring, data reconciliation, and SCD-style change detection.
+
+Run this file independently in PostgreSQL. It creates its own `de_customers`, `de_orders`, and `de_pipeline_runs` tables. The answer key is commented out so you can try each question first.
