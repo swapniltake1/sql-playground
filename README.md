@@ -89,3 +89,10 @@ The exercises cover filtering, joins, aggregation, CTEs, subqueries, anti-joins,
 - Topics include deduplication with `ROW_NUMBER()`, incremental-load filters, late-arriving data, NULL checks, referential integrity, pipeline monitoring, data reconciliation, and SCD-style change detection.
 
 Run this file independently in PostgreSQL. It creates its own `de_customers`, `de_orders`, and `de_pipeline_runs` tables. The answer key is commented out so you can try each question first.
+
+
+### Daily SQL Practice — 2026-10-27
+
+- [SQL Optimization Practice — 2026-10-27](daily/2026-10-27-sql-optimization-practice.sql) — 10 problems with optimized PostgreSQL solutions and performance notes.
+- Topics: SARGable date filters, `LEFT JOIN` correctness, `EXISTS` / `NOT EXISTS`, conditional aggregation, window functions, top-N per city, and query-plan basics.
+- Run the file in PostgreSQL. It creates its own isolated tables; solutions are commented out so you can attempt the questions first.
