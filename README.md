@@ -96,3 +96,10 @@ Run this file independently in PostgreSQL. It creates its own `de_customers`, `d
 - [SQL Optimization Practice — 2026-10-27](daily/2026-10-27-sql-optimization-practice.sql) — 10 problems with optimized PostgreSQL solutions and performance notes.
 - Topics: SARGable date filters, `LEFT JOIN` correctness, `EXISTS` / `NOT EXISTS`, conditional aggregation, window functions, top-N per city, and query-plan basics.
 - Run the file in PostgreSQL. It creates its own isolated tables; solutions are commented out so you can attempt the questions first.
+
+
+### Daily SQL Practice — 2026-10-27: Subscription Cohort Analytics
+
+- [Subscription Cohort & Revenue Analytics](daily/2026-10-27-subscription-cohort-analytics.sql) — eight interview-style problems covering month-end subscriber snapshots, MRR, first-time subscribers, churn, reactivation, cohort retention, revenue growth, and plan mix.
+- Includes independent PostgreSQL sample tables and data, commented solutions, optimization rationale, index considerations, and performance-analysis notes.
+- Run the file in PostgreSQL. Solutions are commented out so you can attempt each question before reviewing the answer.
