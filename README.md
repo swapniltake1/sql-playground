@@ -103,3 +103,12 @@ Run this file independently in PostgreSQL. It creates its own `de_customers`, `d
 - [Subscription Cohort & Revenue Analytics](daily/2026-10-27-subscription-cohort-analytics.sql) — eight interview-style problems covering month-end subscriber snapshots, MRR, first-time subscribers, churn, reactivation, cohort retention, revenue growth, and plan mix.
 - Includes independent PostgreSQL sample tables and data, commented solutions, optimization rationale, index considerations, and performance-analysis notes.
 - Run the file in PostgreSQL. Solutions are commented out so you can attempt each question before reviewing the answer.
+
+
+### Daily SQL Practice — 2026-10-28: Inventory Ledger Analytics
+
+- [Inventory Ledger Reconciliation & Stock Movement Analytics](daily/2026-10-28-inventory-ledger-analytics.sql) — 12 interview-style exercises using warehouse, product, movement-ledger, and physical-snapshot data.
+- Topics include signed stock movements, deterministic running balances, negative-stock detection, ledger-to-snapshot reconciliation, anti-joins, top-N shipments per warehouse, seven-calendar-day rolling totals, SARGable timestamp filters, and query-plan analysis.
+- Includes independent PostgreSQL setup and sample data, commented solutions, optimization rationale, index candidates, expected spot checks, and interview follow-up questions.
+
+Run this file independently in PostgreSQL 14+. Attempt each question before reviewing its commented solution. Index recommendations are candidates to benchmark with `EXPLAIN (ANALYZE, BUFFERS)`, not guaranteed improvements for the small sample dataset.
