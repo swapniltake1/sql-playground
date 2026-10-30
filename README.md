@@ -131,3 +131,11 @@ Run the file in PostgreSQL 14+. Execute the Q2 view-building solution before Q3-
 - Includes isolated pipeline SLA configuration and attempt history, optimized window/aggregate queries, candidate indexes, EXPLAIN guidance, and production monitoring follow-ups.
 
 Run independently in PostgreSQL 14+. The sample timestamps are fixed for reproducibility; benchmark suggested indexes with representative history volumes.
+
+
+### Hourly Data Engineering Practice — 2026-10-31 01:04
+
+- [Join Fanout Prevention & Pre-Aggregated Fact Analytics](daily/2026-10-31-0104-join-fanout-preaggregation.sql) — seven PostgreSQL exercises showing how joining multiple one-to-many fact tables inflates measures, and how to restore correct order/customer grain by aggregating lines, captured payments, and shipments independently before joining.
+- Includes isolated customer/order/line/payment/shipment sample data, reconciliation and orphan checks, ranking, partial-index candidates, and EXPLAIN (ANALYZE, BUFFERS) performance guidance.
+
+Run independently in PostgreSQL 14+. The first exercise demonstrates the fanout; subsequent solutions use one-row-per-order aggregates to prevent double counting.
