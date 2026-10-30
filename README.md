@@ -139,3 +139,11 @@ Run independently in PostgreSQL 14+. The sample timestamps are fixed for reprodu
 - Includes isolated customer/order/line/payment/shipment sample data, reconciliation and orphan checks, ranking, partial-index candidates, and EXPLAIN (ANALYZE, BUFFERS) performance guidance.
 
 Run independently in PostgreSQL 14+. The first exercise demonstrates the fanout; subsequent solutions use one-row-per-order aggregates to prevent double counting.
+
+
+### Hourly Data Engineering Practice — 2026-10-31 02:00
+
+- [Recursive BOM Explosion, Material Requirements & Cost Roll-Up](daily/2026-10-31-0200-recursive-bom-cost-rollup.sql) — eight PostgreSQL exercises using effective-dated multi-level bills of materials and production orders. Topics include recursive quantity multiplication, leaf-material demand, partial cost completeness, missing component masters, future-revision cycle detection, procurement roll-ups, and index/plan analysis.
+- Includes isolated parts, BOM, and production-order sample data; path-based recursion guards; commented problem/solution sections; and production notes on shared subassemblies, effective-date overlaps, closure tables, and cycle remediation.
+
+Run independently in PostgreSQL 14+. The future PANEL-12 to FRAME-10 edge is intentionally invalid and is used only by Q6 to demonstrate cycle detection for the 2 Nov 2026 as-of date.
