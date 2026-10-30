@@ -124,3 +124,10 @@ Run the file in PostgreSQL 14+. Execute the Q2 view-building solution before Q3-
 
 - [Customer CDC to SCD Type 2 Dimension](daily/2026-10-30-2300-customer-scd2-cdc.sql) — PostgreSQL exercises on idempotent CDC ingestion, event deduplication, effective-dated dimension updates, soft deletes, point-in-time fact joins, and history integrity checks.
 - Includes isolated customer dimension and CDC staging data, commented solutions, transaction-safe batch application, index candidates, and EXPLAIN/performance guidance.
+
+### Hourly Data Engineering Practice — 2026-10-31 00:03
+
+- [Pipeline SLA Observability, Retry Analysis & Data Freshness](daily/2026-10-31-0003-pipeline-sla-observability.sql) — eight PostgreSQL exercises covering latest-attempt status, retry recovery, scheduler delay, execution-duration SLAs, source-watermark freshness, logical-run reliability, zero-row success anomalies, and an operations health view.
+- Includes isolated pipeline SLA configuration and attempt history, optimized window/aggregate queries, candidate indexes, EXPLAIN guidance, and production monitoring follow-ups.
+
+Run independently in PostgreSQL 14+. The sample timestamps are fixed for reproducibility; benchmark suggested indexes with representative history volumes.
