@@ -119,3 +119,8 @@ Run this file independently in PostgreSQL 14+. Attempt each question before revi
 - Includes an isolated clickstream event dataset, commented solutions, expected spot checks, index candidates, EXPLAIN guidance, and production-scale performance considerations.
 
 Run the file in PostgreSQL 14+. Execute the Q2 view-building solution before Q3-Q8; all answer queries and optional index statements are commented out so you can attempt each problem first.
+
+### Hourly Data Engineering Practice — 2026-10-30 23:00
+
+- [Customer CDC to SCD Type 2 Dimension](daily/2026-10-30-2300-customer-scd2-cdc.sql) — PostgreSQL exercises on idempotent CDC ingestion, event deduplication, effective-dated dimension updates, soft deletes, point-in-time fact joins, and history integrity checks.
+- Includes isolated customer dimension and CDC staging data, commented solutions, transaction-safe batch application, index candidates, and EXPLAIN/performance guidance.
