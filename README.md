@@ -155,3 +155,9 @@ Run independently in PostgreSQL 14+. The future PANEL-12 to FRAME-10 edge is int
 - Includes isolated chart-of-accounts, journal-header, and journal-line sample data with intentional control failures, optimized posted-only aggregation, candidate indexes, currency-grain cautions, and EXPLAIN (ANALYZE, BUFFERS) performance guidance.
 
 Run independently in PostgreSQL 14+. The sample intentionally contains an unbalanced posted entry, a replayed POS source reference, an unknown account, an inactive account, and an empty posted entry so the control queries return meaningful exceptions.
+
+### Daily SQL Practice — 2026-10-31 (03:58)
+
+- [Data Vault Hub, Link & Satellite Loads](daily/2026-10-31-0358-data-vault-hub-link-satellite-loads.sql) — practical PostgreSQL exercises for replay-safe Data Vault 2.0 loading.
+- Topics: canonical event deduplication, deterministic hash keys, Hub and Link loading, hashdiff-based Satellite historization, current-state and point-in-time queries, and structural controls.
+
