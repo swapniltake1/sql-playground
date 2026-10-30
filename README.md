@@ -147,3 +147,11 @@ Run independently in PostgreSQL 14+. The first exercise demonstrates the fanout;
 - Includes isolated parts, BOM, and production-order sample data; path-based recursion guards; commented problem/solution sections; and production notes on shared subassemblies, effective-date overlaps, closure tables, and cycle remediation.
 
 Run independently in PostgreSQL 14+. The future PANEL-12 to FRAME-10 edge is intentionally invalid and is used only by Q6 to demonstrate cycle detection for the 2 Nov 2026 as-of date.
+
+
+### Hourly Data Engineering Practice — 2026-10-31 03:01
+
+- [Double-Entry Ledger Controls & Trial-Balance Reconciliation](daily/2026-10-31-0301-double-entry-ledger-controls.sql) — eight PostgreSQL exercises covering journal-entry balancing, debit/credit-normal trial balances, deterministic general-ledger running balances, replayed source references, unknown/inactive accounts, empty entries, batch reconciliation, and a consolidated control-exception feed.
+- Includes isolated chart-of-accounts, journal-header, and journal-line sample data with intentional control failures, optimized posted-only aggregation, candidate indexes, currency-grain cautions, and EXPLAIN (ANALYZE, BUFFERS) performance guidance.
+
+Run independently in PostgreSQL 14+. The sample intentionally contains an unbalanced posted entry, a replayed POS source reference, an unknown account, an inactive account, and an empty posted entry so the control queries return meaningful exceptions.
