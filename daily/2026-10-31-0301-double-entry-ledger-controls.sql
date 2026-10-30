@@ -121,20 +121,23 @@ ORDER BY entry_date, entry_id;
 
 -- Q2. Produce a trial balance by account for posted entries through 8 Oct 2026.
 -- Debit-normal accounts: assets/expenses. Credit-normal: liabilities/equity/revenue.
-WITH account_totals AS (
+WITH posted_lines AS (
+    SELECT l.account_id, l.debit_amount, l.credit_amount
+    FROM gl_journal_lines l
+    JOIN gl_journal_entries e ON e.entry_id = l.entry_id
+    WHERE e.status = 'POSTED'
+      AND e.entry_date <= DATE '2026-10-08'
+),
+account_totals AS (
     SELECT
         a.account_id,
         a.account_code,
         a.account_name,
         a.account_type,
-        COALESCE(SUM(l.debit_amount), 0)  AS debits,
-        COALESCE(SUM(l.credit_amount), 0) AS credits
+        COALESCE(SUM(pl.debit_amount), 0)  AS debits,
+        COALESCE(SUM(pl.credit_amount), 0) AS credits
     FROM gl_accounts a
-    LEFT JOIN gl_journal_lines l ON l.account_id = a.account_id
-    LEFT JOIN gl_journal_entries e
-        ON e.entry_id = l.entry_id
-       AND e.status = 'POSTED'
-       AND e.entry_date <= DATE '2026-10-08'
+    LEFT JOIN posted_lines pl ON pl.account_id = a.account_id
     WHERE a.is_active = TRUE
     GROUP BY a.account_id, a.account_code, a.account_name, a.account_type
 )
@@ -149,9 +152,8 @@ SELECT
     END AS normal_balance
 FROM account_totals
 ORDER BY account_code;
--- Note: for a strict production trial balance, move the entry filter into a
--- filtered-entry CTE before joining lines. This preserves zero-activity accounts
--- without accidentally counting non-posted lines.
+-- The filtered posted_lines CTE preserves zero-activity accounts while excluding
+-- draft/void journal lines before aggregation.
 
 -- Q3. Calculate each account's chronological running balance (posted entries only).
 WITH account_activity AS (
