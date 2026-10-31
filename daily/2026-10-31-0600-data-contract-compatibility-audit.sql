@@ -67,7 +67,7 @@ VALUES
     }'::jsonb
 ),
 (
-    'orders.event', 3, '2026-10-31 05:30:00+00',
+    'orders.event', 3, '2026-10-31 00:20:00+00',
     '{
       "fields": {
         "event_id":     {"type": "string",  "nullable": false},
@@ -84,38 +84,38 @@ INSERT INTO incoming_contract_events
     (event_id, contract_name, declared_version, received_at, payload)
 VALUES
 (
-    'evt-1001', 'orders.event', 2, '2026-10-31 05:40:00+00',
+    'evt-1001', 'orders.event', 2, '2026-10-31 00:24:00+00',
     '{"event_id":"evt-1001","customer_id":"C-101","amount":125.50,
-      "currency":"INR","event_ts":"2026-10-31T05:39:58Z",
+      "currency":"INR","event_ts":"2026-10-31T00:23:58Z",
       "source_system":"mobile"}'::jsonb
 ),
 (
-    'evt-1002', 'orders.event', 2, '2026-10-31 05:41:00+00',
+    'evt-1002', 'orders.event', 2, '2026-10-31 00:25:00+00',
     '{"event_id":"evt-1002","customer_id":"C-102","currency":"INR",
-      "event_ts":"2026-10-31T05:40:58Z","source_system":"web"}'::jsonb
+      "event_ts":"2026-10-31T00:24:58Z","source_system":"web"}'::jsonb
 ),
 (
-    'evt-1003', 'orders.event', 2, '2026-10-31 05:42:00+00',
+    'evt-1003', 'orders.event', 2, '2026-10-31 00:26:00+00',
     '{"event_id":"evt-1003","customer_id":"C-103","amount":99.00,
-      "currency":"INR","event_ts":"2026-10-31T05:41:58Z",
+      "currency":"INR","event_ts":"2026-10-31T00:25:58Z",
       "source_system":"partner","campaign_id":"DIWALI26"}'::jsonb
 ),
 (
-    'evt-1004', 'orders.event', 2, '2026-10-31 05:43:00+00',
+    'evt-1004', 'orders.event', 2, '2026-10-31 00:27:00+00',
     '{"event_id":"evt-1004","customer_id":"C-104","amount":"125.50",
-      "currency":"INR","event_ts":"2026-10-31T05:42:58Z",
+      "currency":"INR","event_ts":"2026-10-31T00:26:58Z",
       "source_system":"mobile"}'::jsonb
 ),
 (
-    'evt-1005', 'orders.event', 2, '2026-10-31 05:44:00+00',
+    'evt-1005', 'orders.event', 2, '2026-10-31 00:28:00+00',
     '{"event_id":"evt-1005","customer_id":"C-105","amount":0,
-      "currency":"INR","event_ts":"2026-10-31T05:43:58Z",
+      "currency":"INR","event_ts":"2026-10-31T00:27:58Z",
       "source_system":null}'::jsonb
 ),
 (
-    'evt-1006', 'orders.event', 2, '2026-10-31 05:45:00+00',
+    'evt-1006', 'orders.event', 2, '2026-10-31 00:29:00+00',
     '{"event_id":"evt-1006","customer_id":"C-106","amount":null,
-      "currency":"INR","event_ts":"2026-10-31T05:44:58Z",
+      "currency":"INR","event_ts":"2026-10-31T00:28:58Z",
       "source_system":"batch"}'::jsonb
 );
 
