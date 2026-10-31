@@ -165,3 +165,9 @@ Run independently in PostgreSQL 14+. The sample intentionally contains an unbala
 
 - [FX As-Of Joins, Stale Rates & Multi-Currency Valuation](daily/2026-10-31-0458-fx-asof-valuation.sql) — eight PostgreSQL exercises covering provider quote canonicalization, transaction-date as-of joins, missing/stale-rate controls, daily USD translation, month-end revaluation, provider dispersion, rate-jump monitoring, and index/plan analysis.
 - Includes isolated FX observation and transaction tables, competing provider quotes, a missing AUD quote, a stale JPY quote, signed refunds, commented problem/solution explanations, expected spot checks, and performance notes. Run independently in PostgreSQL 14+.
+
+
+### Hourly Data Engineering Practice — 2026-10-31 06:00
+
+- [Data Contract Compatibility Audit & JSONB Payload Validation](daily/2026-10-31-0600-data-contract-compatibility-audit.sql) — eight PostgreSQL exercises covering adjacent-version field diffs, compatibility classification, unexpected payload keys, missing required values, JSON type mismatches, event-level quality reporting, CI/CD release gating, and index/plan analysis.
+- Includes isolated versioned event-contract snapshots and intentionally invalid incoming payloads, a reusable field-diff view, expected spot checks, conservative compatibility rules, and production performance notes. Run independently in PostgreSQL 14+.
