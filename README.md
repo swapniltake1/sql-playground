@@ -183,3 +183,11 @@ Run independently in PostgreSQL 14+. The sample intentionally contains an unbala
 
 - [Inventory Movement Roll-Forward, Replay Safety & Stock Controls](daily/2026-10-31-0755-inventory-movement-rollforward.sql) — eight PostgreSQL exercises covering replay-safe movement canonicalization, as-of stock balances, deterministic negative-stock detection, dense daily closing snapshots, physical-count reconciliation, duplicate source-event audits, slow-moving inventory, reorder points, and inventory valuation.
 - Includes isolated product, warehouse, opening-balance, movement-ledger, and physical-count sample data; optimized window/aggregate solutions; expected balance spot checks; index and partitioning guidance; and production interview follow-ups. Run independently in PostgreSQL 14+.
+
+
+### Daily SQL Practice — 2026-10-31: Time-Zone-Aware Event Reporting Across DST
+
+- [Time-Zone-Aware Event Reporting Across DST](daily/2026-10-31-timezone-aware-dst-reporting.sql) — eight PostgreSQL exercises using multi-tenant meter events and IANA time-zone configuration. Topics include UTC-to-local conversion, tenant-local business dates, SARGable local-day filters, repeated fall-back hours, DST-aware hourly spines, 23/25-hour calendar days, zero-filled daily reporting, and ambiguous-hour detection.
+- Includes isolated PostgreSQL 14+ sample tables for New York, London, and India; explicit-offset event timestamps; optimized UTC-boundary predicates; expected DST assertions; index/partitioning guidance; and interview follow-ups.
+
+Run independently in PostgreSQL 14+. The sample demonstrates New York's 23-hour spring-forward day and 25-hour fall-back day, plus London's 25-hour fall-back day. Keep UTC instants as the event-time source of truth and use tenant IANA zones for reporting.
