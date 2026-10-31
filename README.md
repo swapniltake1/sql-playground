@@ -177,3 +177,9 @@ Run independently in PostgreSQL 14+. The sample intentionally contains an unbala
 
 - [Promotion Eligibility, Stacking Rules & Discount Allocation](daily/2026-10-31-0702-promotion-stacking-discount-allocation.sql) — eight PostgreSQL exercises using retail orders, product scope, promotion validity windows, priority groups, and coupon redemptions. Topics include eligible-subtotal calculation, deterministic one-per-stack-group selection, redemption auditing, cent-exact proportional discount allocation, post-discount contribution margin, campaign performance, and overlapping-promotion detection.
 - Includes isolated sample schema/data, optimized LATERAL/EXISTS and window-function solutions, expected spot checks, candidate indexes, and performance notes. Run independently in PostgreSQL 14+.
+
+
+### Hourly Data Engineering Practice — 2026-10-31 07:55
+
+- [Inventory Movement Roll-Forward, Replay Safety & Stock Controls](daily/2026-10-31-0755-inventory-movement-rollforward.sql) — eight PostgreSQL exercises covering replay-safe movement canonicalization, as-of stock balances, deterministic negative-stock detection, dense daily closing snapshots, physical-count reconciliation, duplicate source-event audits, slow-moving inventory, reorder points, and inventory valuation.
+- Includes isolated product, warehouse, opening-balance, movement-ledger, and physical-count sample data; optimized window/aggregate solutions; expected balance spot checks; index and partitioning guidance; and production interview follow-ups. Run independently in PostgreSQL 14+.
