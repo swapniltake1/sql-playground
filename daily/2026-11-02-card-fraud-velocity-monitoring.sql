@@ -196,7 +196,7 @@ ORDER BY card_id, event_ts;
 WITH category_baseline AS (
     SELECT
         m.category,
-        percentile_cont(0.95) WITHIN GROUP (ORDER BY t.amount) AS p95_amount
+        percentile_cont(0.95) WITHIN GROUP (ORDER BY t.amount::double precision)::numeric AS p95_amount
     FROM practice_fraud_txn AS t
     JOIN practice_fraud_merchant AS m
       ON m.merchant_id = t.merchant_id
@@ -352,7 +352,7 @@ velocity AS (
 baseline AS (
     SELECT
         m.category,
-        percentile_cont(0.95) WITHIN GROUP (ORDER BY t.amount) AS p95_amount
+        percentile_cont(0.95) WITHIN GROUP (ORDER BY t.amount::double precision)::numeric AS p95_amount
     FROM practice_fraud_txn AS t
     JOIN practice_fraud_merchant AS m
       ON m.merchant_id = t.merchant_id
@@ -497,7 +497,7 @@ velocity AS (
 baseline AS (
     SELECT
         m.category,
-        percentile_cont(0.95) WITHIN GROUP (ORDER BY t.amount) AS p95_amount
+        percentile_cont(0.95) WITHIN GROUP (ORDER BY t.amount::double precision)::numeric AS p95_amount
     FROM practice_fraud_txn AS t
     JOIN practice_fraud_merchant AS m
       ON m.merchant_id = t.merchant_id
