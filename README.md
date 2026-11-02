@@ -191,3 +191,11 @@ Run independently in PostgreSQL 14+. The sample intentionally contains an unbala
 - Includes isolated PostgreSQL 14+ sample tables for New York, London, and India; explicit-offset event timestamps; optimized UTC-boundary predicates; expected DST assertions; index/partitioning guidance; and interview follow-ups.
 
 Run independently in PostgreSQL 14+. The sample demonstrates New York's 23-hour spring-forward day and 25-hour fall-back day, plus London's 25-hour fall-back day. Keep UTC instants as the event-time source of truth and use tenant IANA zones for reporting.
+
+
+### Daily SQL Practice — 2026-11-02: Card Fraud Velocity & Alerting
+
+- [Card Fraud Velocity, Peer Baselines & Idempotent Alerting](daily/2026-11-02-card-fraud-velocity-monitoring.sql) — eight PostgreSQL exercises covering rolling 10-minute card velocity, category-level P95 amount outliers, cross-border approvals, repeated authorization detection, explainable rule scoring, hourly status controls, and idempotent alert persistence.
+- Includes isolated card, merchant, and transaction sample data; executable solutions; expected spot checks; a rule-hit view; an idempotent alert sink with reconciliation; index/partitioning candidates; EXPLAIN guidance; and production-scale interview follow-ups.
+
+Run independently in PostgreSQL 14+. All sample event timestamps are explicit UTC instants. The rule score is illustrative only; production thresholds and weights require calibration and governance.
