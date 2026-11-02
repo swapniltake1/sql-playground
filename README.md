@@ -199,3 +199,11 @@ Run independently in PostgreSQL 14+. The sample demonstrates New York's 23-hour 
 - Includes isolated card, merchant, and transaction sample data; executable solutions; expected spot checks; a rule-hit view; an idempotent alert sink with reconciliation; index/partitioning candidates; EXPLAIN guidance; and production-scale interview follow-ups.
 
 Run independently in PostgreSQL 14+. All sample event timestamps are explicit UTC instants. The rule score is illustrative only; production thresholds and weights require calibration and governance.
+
+
+### Daily SQL Practice — 2026-11-02: PostgreSQL Partition Pruning & Retention
+
+- [PostgreSQL Declarative Partitioning, Pruning & Retention](daily/2026-11-02-postgres-partition-pruning-retention.sql) — eight practical PostgreSQL exercises covering monthly range partitions, partition-pruned time filters, tenant/day roll-ups, latest-row access, replay-safe inserts, prevalidated partition attachment, partition catalog/storage monitoring, cross-partition event-ID replay detection, and retention by detaching expired partitions.
+- Includes isolated event-log setup with October and November partitions, realistic multi-tenant sample events, a staged December partition, executable solutions, expected assertions, B-tree/BRIN trade-offs, EXPLAIN guidance, and production interview follow-ups.
+
+Run independently in PostgreSQL 14+. Execute Q1-Q8 in order; Q5 attaches the December staging table and Q8 detaches October. The composite key (event_ts, event_id) is partition-compatible but does not enforce global event_id uniqueness across partitions.
