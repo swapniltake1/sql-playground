@@ -397,14 +397,19 @@ RESET ROLE;
 
 -- ----------------------------------------------------------------------------
 -- Q8. Problem: Validate tenant-aware referential integrity and key design.
--- Expected: no orphan rows. The same order_id may exist in two tenants, but
--- a customer reference must match both tenant_id and customer_id.
+-- Expected: no orphan rows for either tenant. Each tenant can independently
+-- have order_id 5001 because the primary key includes tenant_id.
 -- ----------------------------------------------------------------------------
 
--- The composite FK prevents an order for tenant A from referencing tenant B's
--- customer, even if the customer_id value happens to be the same.
+-- FORCE ROW LEVEL SECURITY also subjects the table owner to policies. The
+-- owner is not granted a broad policy here, so perform data checks as the
+-- tenant application role with one tenant context at a time.
+SET ROLE tenant_demo_app;
+
+BEGIN;
+SET LOCAL app.tenant_id = '11111111-1111-4111-8111-111111111111';
+
 SELECT
-    o.tenant_id,
     o.order_id,
     o.customer_id
 FROM tenant_demo.orders AS o
@@ -412,17 +417,50 @@ LEFT JOIN tenant_demo.customers AS c
   ON c.tenant_id = o.tenant_id
  AND c.customer_id = o.customer_id
 WHERE c.customer_id IS NULL;
+-- Expected: zero rows for tenant A.
 
--- Expected: zero rows.
-
--- Demonstrate tenant-aware key reuse:
-SELECT tenant_id, order_id, external_order_ref
+SELECT order_id, external_order_ref
 FROM tenant_demo.orders
-WHERE order_id = 5001
-ORDER BY tenant_id;
+WHERE order_id = 5001;
+-- Expected: one row, A-5001.
 
--- Expected: two rows, one for each tenant. This is valid because the primary
--- key is (tenant_id, order_id), not order_id alone.
+COMMIT;
+
+BEGIN;
+SET LOCAL app.tenant_id = '22222222-2222-4222-8222-222222222222';
+
+SELECT
+    o.order_id,
+    o.customer_id
+FROM tenant_demo.orders AS o
+LEFT JOIN tenant_demo.customers AS c
+  ON c.tenant_id = o.tenant_id
+ AND c.customer_id = o.customer_id
+WHERE c.customer_id IS NULL;
+-- Expected: zero rows for tenant B.
+
+SELECT order_id, external_order_ref
+FROM tenant_demo.orders
+WHERE order_id = 5001;
+-- Expected: one row, B-5001.
+
+COMMIT;
+RESET ROLE;
+
+-- The primary-key and foreign-key definitions can be inspected from catalog
+-- metadata without reading tenant data:
+SELECT
+    conname,
+    pg_get_constraintdef(oid) AS constraint_definition
+FROM pg_constraint
+WHERE conrelid = 'tenant_demo.orders'::regclass
+  AND contype IN ('p', 'u', 'f')
+ORDER BY contype, conname;
+
+-- The composite FK prevents an order for tenant A from referencing tenant B's
+-- customer, even if customer_id values happen to collide. A cross-tenant audit
+-- should run through a separately governed privileged audit path, not by
+-- weakening the application role's tenant policy.
 
 -- ----------------------------------------------------------------------------
 -- PERFORMANCE & PRODUCTION NOTES
