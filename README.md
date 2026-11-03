@@ -207,3 +207,9 @@ Run independently in PostgreSQL 14+. All sample event timestamps are explicit UT
 - Includes isolated event-log setup with October and November partitions, realistic multi-tenant sample events, a staged December partition, executable solutions, expected assertions, B-tree/BRIN trade-offs, EXPLAIN guidance, and production interview follow-ups.
 
 Run independently in PostgreSQL 14+. Execute Q1-Q8 in order; Q5 attaches the December staging table and Q8 detaches October. The composite key (event_ts, event_id) is partition-compatible but does not enforce global event_id uniqueness across partitions.
+
+### Daily SQL Practice — 2026-11-03: PostgreSQL Multi-Tenant Row-Level Security
+
+- [PostgreSQL Row-Level Security for Multi-Tenant Analytics](daily/2026-11-03-postgres-row-level-security-multitenancy.sql) — eight practical exercises covering tenant-scoped reads and writes, fail-closed behavior when tenant context is absent, safe transaction-local context for pooled connections, policy composition (PERMISSIVE versus RESTRICTIVE), tenant-aware joins and keys, and RLS-aware indexing.
+- Includes isolated PostgreSQL sample customers and orders for two tenants, composite tenant keys and foreign keys, RLS policies with `USING` / `WITH CHECK`, expected assertions, query-plan exercises, security caveats, and production performance notes. Run independently in PostgreSQL 14+ as a database owner/administrator in a disposable practice database.
+
