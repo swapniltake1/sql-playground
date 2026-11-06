@@ -219,3 +219,8 @@ Run independently in PostgreSQL 14+. Execute Q1-Q8 in order; Q5 attaches the Dec
 
 - [Source-to-Target Reconciliation, Control Totals & Exception Reporting](daily/2026-11-06-source-target-reconciliation-control-totals.sql) — eight PostgreSQL exercises covering deterministic CDC event deduplication, source/target row and amount control totals, missing/extra key detection, attribute-level mismatch checks, replay detection, exception summaries, and version-aware idempotent upserts with delete tombstones.
 - Includes isolated banking transaction batches, intentional duplicate/replay and target-side exceptions, commented reference solutions, expected reconciliation checks, index candidates, currency-grain safeguards, and production batch-watermark guidance. Run independently in PostgreSQL 14+.
+
+### Daily SQL Practice — 2026-11-06: Transactional Outbox & Reliable Event Delivery
+
+- [Transactional Outbox, Concurrent Delivery, Retries & Idempotent Consumers](daily/2026-11-06-transactional-outbox-delivery.sql) — eight PostgreSQL exercises covering atomic business/event writes, concurrent publisher claims with `FOR UPDATE SKIP LOCKED`, lease recovery, broker acknowledgements, capped exponential retry, dead-letter handling, consumer inbox idempotency, backlog observability, and bounded retention cleanup.
+- Includes isolated order/outbox sample tables with ready, leased, retry-wait, published, and exhausted events; runnable SQL solutions; expected control assertions; partial-index and query-plan guidance; and production interview follow-ups. Run independently in PostgreSQL 14+ in a disposable database.
