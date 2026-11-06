@@ -213,3 +213,9 @@ Run independently in PostgreSQL 14+. Execute Q1-Q8 in order; Q5 attaches the Dec
 - [PostgreSQL Row-Level Security for Multi-Tenant Analytics](daily/2026-11-03-postgres-row-level-security-multitenancy.sql) — eight practical exercises covering tenant-scoped reads and writes, fail-closed behavior when tenant context is absent, safe transaction-local context for pooled connections, policy composition (PERMISSIVE versus RESTRICTIVE), tenant-aware joins and keys, and RLS-aware indexing.
 - Includes isolated PostgreSQL sample customers and orders for two tenants, composite tenant keys and foreign keys, RLS policies with `USING` / `WITH CHECK`, expected assertions, query-plan exercises, security caveats, and production performance notes. Run independently in PostgreSQL 14+ as a database owner/administrator in a disposable practice database.
 
+
+
+### Daily SQL Practice — 2026-11-06: Source-to-Target Reconciliation
+
+- [Source-to-Target Reconciliation, Control Totals & Exception Reporting](daily/2026-11-06-source-target-reconciliation-control-totals.sql) — eight PostgreSQL exercises covering deterministic CDC event deduplication, source/target row and amount control totals, missing/extra key detection, attribute-level mismatch checks, replay detection, exception summaries, and version-aware idempotent upserts with delete tombstones.
+- Includes isolated banking transaction batches, intentional duplicate/replay and target-side exceptions, commented reference solutions, expected reconciliation checks, index candidates, currency-grain safeguards, and production batch-watermark guidance. Run independently in PostgreSQL 14+.
