@@ -345,6 +345,13 @@ expected_slots AS (
         TIMESTAMPTZ '2026-11-11 11:15:00+05:30',
         INTERVAL '15 minutes'
     ) AS g(slot)
+    WHERE NOT EXISTS (
+        SELECT 1
+        FROM maintenance_windows m
+        WHERE m.asset_id = s.asset_id
+          AND slot >= m.starts_at
+          AND slot <  m.ends_at
+    )
 ),
 coverage AS (
     SELECT e.asset_id, e.sensor_code,
