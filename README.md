@@ -224,3 +224,9 @@ Run independently in PostgreSQL 14+. Execute Q1-Q8 in order; Q5 attaches the Dec
 
 - [Transactional Outbox, Concurrent Delivery, Retries & Idempotent Consumers](daily/2026-11-06-transactional-outbox-delivery.sql) — eight PostgreSQL exercises covering atomic business/event writes, concurrent publisher claims with `FOR UPDATE SKIP LOCKED`, lease recovery, broker acknowledgements, capped exponential retry, dead-letter handling, consumer inbox idempotency, backlog observability, and bounded retention cleanup.
 - Includes isolated order/outbox sample tables with ready, leased, retry-wait, published, and exhausted events; runnable SQL solutions; expected control assertions; partial-index and query-plan guidance; and production interview follow-ups. Run independently in PostgreSQL 14+ in a disposable database.
+
+
+### Daily SQL Practice — 2026-11-11: Marketplace Seller Payout Reconciliation
+
+- [Marketplace Seller Payout Reconciliation, Reserves & Settlement Controls](daily/2026-11-11-marketplace-seller-payout-reconciliation.sql) — eight PostgreSQL exercises covering payout-grain financial aggregation, safe handling of one-to-many joins, duplicate source-event detection, seller ranking by currency and period, post-payment adjustment audits, full-outer-join bank reconciliation, reserve threshold checks, and latest payout state.
+- Includes isolated seller payout, item, adjustment, and bank settlement sample data; reference solutions; integer-minor-unit and currency-grain safeguards; candidate indexes; and EXPLAIN guidance. Run independently in PostgreSQL 14+.
