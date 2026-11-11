@@ -230,3 +230,9 @@ Run independently in PostgreSQL 14+. Execute Q1-Q8 in order; Q5 attaches the Dec
 
 - [Marketplace Seller Payout Reconciliation, Reserves & Settlement Controls](daily/2026-11-11-marketplace-seller-payout-reconciliation.sql) — eight PostgreSQL exercises covering payout-grain financial aggregation, safe handling of one-to-many joins, duplicate source-event detection, seller ranking by currency and period, post-payment adjustment audits, full-outer-join bank reconciliation, reserve threshold checks, and latest payout state.
 - Includes isolated seller payout, item, adjustment, and bank settlement sample data; reference solutions; integer-minor-unit and currency-grain safeguards; candidate indexes; and EXPLAIN guidance. Run independently in PostgreSQL 14+.
+
+
+### Daily SQL Practice — 2026-11-11: Machine Telemetry Anomaly Detection
+
+- [Industrial Machine Telemetry, Calibration & Anomaly Detection](daily/2026-11-11-machine-telemetry-anomaly-detection.sql) — ten PostgreSQL exercises covering replay-safe sensor-event deduplication, effective-dated calibration lookups, maintenance-window suppression, telemetry gap detection, leakage-safe rolling baselines, statistical anomaly flags, 15-minute rollups, expected-slot coverage, latest sensor state, and calibration-overlap controls.
+- Includes isolated pump/compressor telemetry, calibration history, maintenance windows, intentional replay and quality exceptions, executable solutions, optimization explanations, index candidates, and production performance notes. Run independently in PostgreSQL 14+.
