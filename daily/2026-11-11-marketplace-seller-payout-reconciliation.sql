@@ -91,7 +91,22 @@ LEFT JOIN adjustment_totals a USING (payout_id)
 ORDER BY p.payout_id;
 
 -- Q2. Find paid payouts whose paid amount would be negative or zero.
--- Solution: reuse the one-row-per-payout aggregates from Q1; filter net_payable_minor <= 0.
+-- Solution:
+WITH item_totals AS (
+    SELECT payout_id, SUM(amount_minor) AS item_net_minor
+    FROM payout_items GROUP BY payout_id
+),
+adjustment_totals AS (
+    SELECT payout_id, SUM(amount_minor) AS adjustment_net_minor
+    FROM payout_adjustments WHERE approved GROUP BY payout_id
+)
+SELECT p.payout_id, p.currency,
+       COALESCE(i.item_net_minor,0) + COALESCE(a.adjustment_net_minor,0) AS net_payable_minor
+FROM seller_payouts p
+LEFT JOIN item_totals i USING (payout_id)
+LEFT JOIN adjustment_totals a USING (payout_id)
+WHERE p.status = 'paid'
+  AND COALESCE(i.item_net_minor,0) + COALESCE(a.adjustment_net_minor,0) <= 0;
 
 -- Q3. Identify duplicate source events before enforcing a unique constraint in a
 --     legacy ingestion table. Return every duplicate event and its occurrences.
@@ -162,20 +177,26 @@ ORDER BY payout_id;
 
 -- Q7. Detect held payouts whose approved reserve exceeds 10% of positive sales.
 -- Solution:
-WITH totals AS (
-    SELECT p.payout_id,
-           SUM(i.amount_minor) FILTER (WHERE i.item_type = 'sale') AS sales_minor,
-           -SUM(a.amount_minor) FILTER (WHERE a.reason LIKE '%reserve%') AS reserve_minor
-    FROM seller_payouts p
-    LEFT JOIN payout_items i USING (payout_id)
-    LEFT JOIN payout_adjustments a ON a.payout_id = p.payout_id AND a.approved
-    WHERE p.status = 'held'
-    GROUP BY p.payout_id
+WITH sales AS (
+    SELECT payout_id,
+           SUM(amount_minor) FILTER (WHERE item_type = 'sale') AS sales_minor
+    FROM payout_items
+    GROUP BY payout_id
+),
+reserves AS (
+    SELECT payout_id,
+           -SUM(amount_minor) AS reserve_minor
+    FROM payout_adjustments
+    WHERE approved AND reason LIKE '%reserve%'
+    GROUP BY payout_id
 )
-SELECT payout_id, sales_minor, reserve_minor
-FROM totals
-WHERE sales_minor > 0
-  AND reserve_minor > sales_minor * 0.10;
+SELECT p.payout_id, s.sales_minor, COALESCE(r.reserve_minor,0) AS reserve_minor
+FROM seller_payouts p
+JOIN sales s USING (payout_id)
+LEFT JOIN reserves r USING (payout_id)
+WHERE p.status = 'held'
+  AND s.sales_minor > 0
+  AND COALESCE(r.reserve_minor,0) > s.sales_minor * 0.10;
 
 -- Q8. Return the latest payout state per seller and currency.
 -- Solution:
