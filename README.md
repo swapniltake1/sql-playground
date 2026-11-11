@@ -236,3 +236,10 @@ Run independently in PostgreSQL 14+. Execute Q1-Q8 in order; Q5 attaches the Dec
 
 - [Industrial Machine Telemetry, Calibration & Anomaly Detection](daily/2026-11-11-machine-telemetry-anomaly-detection.sql) — ten PostgreSQL exercises covering replay-safe sensor-event deduplication, effective-dated calibration lookups, maintenance-window suppression, telemetry gap detection, leakage-safe rolling baselines, statistical anomaly flags, 15-minute rollups, expected-slot coverage, latest sensor state, and calibration-overlap controls.
 - Includes isolated pump/compressor telemetry, calibration history, maintenance windows, intentional replay and quality exceptions, executable solutions, optimization explanations, index candidates, and production performance notes. Run independently in PostgreSQL 14+.
+
+
+### Daily SQL Practice — 2026-11-11: PostGIS Delivery-Zone Analytics
+
+- [PostGIS Delivery Zones, Nearest Hubs, Geofences & Spatial Aggregation](daily/2026-11-11-postgis-delivery-zone-analytics.sql) — ten PostgreSQL/PostGIS exercises covering coordinate validation and normalization, deterministic point-in-polygon assignment, unassigned-delivery detection, geography-based nearest-hub search, service-zone overlap measurement, local-day zone metrics, driver geofence transitions, GPS track reconstruction, and 500-metre density grids.
+- Includes isolated landing and curated delivery tables, sample Pune-like geometries, driver GPS pings, GiST indexes, executable solutions, optimization explanations, and spatial performance guidance. Requires PostgreSQL 14+ and PostGIS 3.x. Run Q1-Q2 before Q3-Q10.
+
