@@ -212,15 +212,23 @@ ORDER BY d.delivery_id;
 -- Problem: Find each overlapping zone pair and report shared area in square metres.
 --          Ignore pairs that only touch at a boundary (zero area).
 -- Solution:
-SELECT a.zone_id AS zone_a, b.zone_id AS zone_b,
-       ROUND(ST_Area(ST_Intersection(a.geom, b.geom)::geography)::numeric, 1)
-           AS overlap_area_m2
-FROM geo_service_zones a
-JOIN geo_service_zones b
-  ON a.zone_id < b.zone_id
- AND a.geom && b.geom
- AND ST_Intersects(a.geom, b.geom)
-WHERE ST_Area(ST_Intersection(a.geom, b.geom)::geography) > 0
+WITH overlaps AS (
+    SELECT a.zone_id AS zone_a, b.zone_id AS zone_b,
+           ST_Intersection(a.geom, b.geom) AS overlap_geom
+    FROM geo_service_zones a
+    JOIN geo_service_zones b
+      ON a.zone_id < b.zone_id
+     AND a.geom && b.geom
+     AND ST_Intersects(a.geom, b.geom)
+),
+measured AS (
+    SELECT zone_a, zone_b,
+           ST_Area(overlap_geom::geography) AS overlap_area_m2
+    FROM overlaps
+)
+SELECT zone_a, zone_b, ROUND(overlap_area_m2::numeric, 1) AS overlap_area_m2
+FROM measured
+WHERE overlap_area_m2 > 0
 ORDER BY zone_a, zone_b;
 
 -- Optimization: zone_id < zone_id evaluates each unordered pair once. Bounding
@@ -268,9 +276,8 @@ WITH classified AS (
     SELECT p.ping_id, p.driver_id, p.ping_ts,
            ST_Covers(z.geom, p.geom) AS is_inside
     FROM geo_driver_pings p
-    JOIN geo_service_zones z ON z.zone_id = 1
-    WHERE z.geom && p.geom
-       OR ST_Covers(z.geom, p.geom) = FALSE
+    CROSS JOIN geo_service_zones z
+    WHERE z.zone_id = 1
 ),
 with_previous AS (
     SELECT *,
