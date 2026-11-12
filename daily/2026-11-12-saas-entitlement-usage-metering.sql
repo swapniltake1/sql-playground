@@ -134,7 +134,7 @@ INSERT INTO plan_entitlements VALUES
 
 INSERT INTO usage_events_raw VALUES
 (1,  'evt-099', 101, 'api_calls',   '2026-10-31 23:45+00', '2026-10-31 23:50+00',   20, 'h099'),
-(2,  'evt-101', 101, 'api_calls',   '2026-11-02 08:00+00', '2026-11-02 08:00+05:30', 400, 'h101'),
+(2,  'evt-101', 101, 'api_calls',   '2026-11-02 08:00+00', '2026-11-02 08:01+00', 400, 'h101'),
 (3,  'evt-102', 101, 'api_calls',   '2026-11-03 09:00+00', '2026-11-03 09:02+00',   350, 'h102'),
 (4,  'evt-102', 101, 'api_calls',   '2026-11-03 09:00+00', '2026-11-04 08:00+00',   350, 'h102'),
 (5,  'evt-103', 101, 'api_calls',   '2026-11-05 11:00+00', '2026-11-05 11:01+00',   300, 'h103'),
@@ -153,7 +153,7 @@ INSERT INTO usage_events_raw VALUES
 
 -- ---------------------------------------------------------------------------
 -- Q1. PROBLEM — Canonicalize replayed usage events.
--- Return one row per source_event_id, keeping the latest accepted delivery.
+-- Return one row per source_event_id, keeping the latest delivery.
 -- Also expose delivery_count so duplicate traffic can be measured.
 --
 -- OPTIMIZED SOLUTION:
