@@ -259,3 +259,9 @@ Run independently in PostgreSQL 14+. Execute Q1-Q8 in order; Q5 attaches the Dec
 
 - [Loan Delinquency Vintage Curves & Roll-Rate Analytics](daily/2026-11-13-loan-delinquency-vintage-roll-rates.sql) — nine PostgreSQL exercises covering replay-safe monthly snapshot canonicalization, latest portfolio DPD buckets, origination-vintage curves, month-over-month roll-rate transitions, cure rates, weighted collections efficiency, branch risk concentration, missing snapshot detection, and source-data quality controls.
 - Includes isolated loan-account and raw snapshot sample data with corrected/replayed deliveries, a missing month, and an intentional orphan record; commented reference solutions, expected spot checks, optimization explanations, index candidates, and EXPLAIN/performance guidance. Run independently in PostgreSQL 14+.
+
+### Daily SQL Practice — 2026-11-14: Airline Network Operations
+
+- [Airline Operations: Flight Delays, Turnarounds & Connection Risk](daily/2026-11-14-airline-operations-delay-connection-risk.sql) — nine PostgreSQL exercises covering replay-safe flight-event canonicalization, route-level departure/arrival on-time performance, airport delay percentiles, aircraft turnaround and delay propagation, passenger connection feasibility, gate-occupancy conflicts, aircraft rotation validation, cancellation impact, and event consistency checks.
+- Includes an isolated airline schedule and operations-event dataset with corrected/replayed status updates, an intentionally short aircraft turn, overlapping gate assignments, passenger connections, and a contradictory cancellation/departure record. Commented reference solutions explain window functions, filtered aggregates, range-overlap indexing, deterministic deduplication, and production performance considerations. Run independently in PostgreSQL 14+.
+
