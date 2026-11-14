@@ -361,6 +361,8 @@ GROUP BY flight_id;
 --            f.origin,
 --            f.destination,
 --            f.flight_id,
+--            f.scheduled_departure,
+--            f.scheduled_arrival,
 --            a.actual_departure,
 --            a.actual_arrival,
 --            COALESCE(a.is_cancelled, false) AS is_cancelled
@@ -381,11 +383,8 @@ GROUP BY flight_id;
 --        ROUND(
 --            100.0 * COUNT(*) FILTER (
 --                WHERE NOT is_cancelled
---                  AND actual_departure <=
---                      (SELECT f2.scheduled_departure
---                       FROM flight_schedule f2
---                       WHERE f2.flight_id = outcomes.flight_id)
---                      + INTERVAL '15 minutes'
+--                  AND actual_departure IS NOT NULL
+--                  AND actual_departure <= scheduled_departure + INTERVAL '15 minutes'
 --            )
 --            / NULLIF(COUNT(*) FILTER (
 --                WHERE NOT is_cancelled AND actual_departure IS NOT NULL
@@ -396,11 +395,7 @@ GROUP BY flight_id;
 --            100.0 * COUNT(*) FILTER (
 --                WHERE NOT is_cancelled
 --                  AND actual_arrival IS NOT NULL
---                  AND actual_arrival <=
---                      (SELECT f2.scheduled_arrival
---                       FROM flight_schedule f2
---                       WHERE f2.flight_id = outcomes.flight_id)
---                      + INTERVAL '15 minutes'
+--                  AND actual_arrival <= scheduled_arrival + INTERVAL '15 minutes'
 --            )
 --            / NULLIF(COUNT(*) FILTER (
 --                WHERE NOT is_cancelled AND actual_arrival IS NOT NULL
@@ -411,21 +406,14 @@ GROUP BY flight_id;
 -- GROUP BY operating_date, airline_code, origin, destination
 -- ORDER BY operating_date, airline_code, origin, destination;
 --
--- ALTERNATIVE IMPLEMENTATION NOTE:
--- For production reporting, carry scheduled_departure and scheduled_arrival
--- into the outcomes CTE instead of using scalar lookups. This avoids repeated
--- primary-key probes and makes the aggregate self-contained:
---   SELECT f.scheduled_departure, f.scheduled_arrival, ...
--- Then compare actual timestamps directly with those columns.
---
 -- WHY THIS IS OPTIMIZED:
 -- The actuals view reduces status events to one row per flight before joining,
 -- preventing replayed events from multiplying scheduled-flight counts.
--- FILTER aggregates calculate all route metrics in one grouped pass. Keep
--- cancellations separate from missing telemetry so an unreported flight is
--- not silently classified as either cancelled or completed.
+-- Scheduled timestamps are projected once and compared directly; there are no
+-- correlated lookups. FILTER aggregates calculate all route metrics in one
+-- grouped pass. Keep cancellations separate from missing telemetry so an
+-- unreported flight is not silently classified as either cancelled or completed.
 
--- ============================================================================
 -- PROBLEM 3 — Airport departure-delay distribution
 -- For each origin airport, calculate completed-flight count, average positive
 -- departure delay, median delay, and P95 delay in minutes.
