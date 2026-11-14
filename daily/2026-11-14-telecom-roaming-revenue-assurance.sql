@@ -663,10 +663,11 @@ WHERE c.record_status = 'ACTIVE'
 --        CASE
 --          WHEN sequence_no = prior_sequence_no THEN 'DUPLICATE_SEQUENCE'
 --          WHEN sequence_no > prior_sequence_no + 1 THEN 'SEQUENCE_GAP'
+--          WHEN sequence_no < prior_sequence_no THEN 'OUT_OF_ORDER_SEQUENCE'
 --        END AS sequence_exception
 -- FROM ordered_cdr
 -- WHERE prior_sequence_no IS NOT NULL
---   AND sequence_no <= prior_sequence_no + 1
+--   AND sequence_no <> prior_sequence_no + 1
 -- ORDER BY subscriber_id, partner_id, session_id, event_start, cdr_id;
 --
 -- EXPECTED SPOT CHECK:
