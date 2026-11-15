@@ -269,3 +269,9 @@ Run independently in PostgreSQL 14+. Execute Q1-Q8 in order; Q5 attaches the Dec
 
 - [Telecom Roaming Usage Mediation & Revenue Assurance](daily/2026-11-14-telecom-roaming-revenue-assurance.sql) — nine PostgreSQL exercises covering replay-safe CDR canonicalization, late-arriving usage and watermark lag, subscriber-local daily data caps, effective-dated tariff rating, partner/service revenue ranking, roaming settlement reconciliation, session sequence gaps, tariff overlap and coverage controls, and canonical source-data quality exceptions.
 - Includes isolated subscriber, roaming-partner, tariff, CDR landing, and partner-statement sample data with intentional replays, corrections, a voided record, late usage, tariff overlap, an unrated service, and malformed source data. Commented reference solutions explain DISTINCT ON, LATERAL, window functions, FULL OUTER JOIN, BRIN/B-tree/GiST index choices, and production performance considerations. Run independently in PostgreSQL 14+.
+
+
+### Daily SQL Practice — 2026-11-15: Cloud FinOps Cost Allocation & Anomaly Detection
+
+- [Cloud FinOps: Cost Allocation, Budget Forecasting & Anomaly Detection](daily/2026-11-15-cloud-finops-cost-allocation-anomalies.sql) — nine PostgreSQL exercises covering replay-safe billing-line canonicalization, effective-dated resource-tag attribution, monthly service spend, budget run-rate forecasting, hourly commitment coverage, unallocated-cost exceptions, cost-center concentration, invoice control reconciliation, and seven-day spend anomaly detection.
+- Includes isolated cloud-account, resource-tag, billing-delivery, budget, commitment, and invoice-control data with duplicate deliveries, a corrected charge, a voided line, a cost-center ownership change, unallocated usage, and a deliberate invoice variance. Solutions explain DISTINCT ON, LATERAL lookups, SARGable time filters, pre-aggregation, window frames, and B-tree/BRIN indexing. Run independently in PostgreSQL 14+.
