@@ -275,3 +275,9 @@ Run independently in PostgreSQL 14+. Execute Q1-Q8 in order; Q5 attaches the Dec
 
 - [Cloud FinOps: Cost Allocation, Budget Forecasting & Anomaly Detection](daily/2026-11-15-cloud-finops-cost-allocation-anomalies.sql) — nine PostgreSQL exercises covering replay-safe billing-line canonicalization, effective-dated resource-tag attribution, monthly service spend, budget run-rate forecasting, hourly commitment coverage, unallocated-cost exceptions, cost-center concentration, invoice control reconciliation, and seven-day spend anomaly detection.
 - Includes isolated cloud-account, resource-tag, billing-delivery, budget, commitment, and invoice-control data with duplicate deliveries, a corrected charge, a voided line, a cost-center ownership change, unallocated usage, and a deliberate invoice variance. Solutions explain DISTINCT ON, LATERAL lookups, SARGable time filters, pre-aggregation, window frames, and B-tree/BRIN indexing. Run independently in PostgreSQL 14+.
+
+
+### Daily SQL Practice — 2026-11-15: Privacy Consent & Data Erasure Governance
+
+- [Privacy Consent, Data Subject Requests & Erasure Governance](daily/2026-11-15-privacy-consent-data-erasure-governance.sql) — ten PostgreSQL exercises covering replay-safe consent canonicalization, as-of consent decisions, purpose-specific processing gates, DSAR SLA reporting, legal-hold-aware erasure worklists, idempotent downstream job dispatch, erasure completion reconciliation, retention-expiry candidates, privacy-governance exception reporting, and overlapping legal-hold detection.
+- Includes an isolated synthetic privacy schema, duplicate and corrected consent deliveries, orphan-event and incomplete-erasure exceptions, effective-dated legal holds, downstream job retries, optimized reference SQL, index rationale, and EXPLAIN/performance guidance. Run independently in PostgreSQL 14+ in a disposable database; the script recreates its dedicated `privacy_practice` schema.
