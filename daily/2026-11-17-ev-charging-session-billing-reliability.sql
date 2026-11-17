@@ -550,13 +550,13 @@ occupied AS (
     GROUP BY charger_id
 ),
 slots AS (
-    SELECT gs AS slot_start,
+    SELECT slot_start,
            tstzrange(gs, gs + INTERVAL '1 hour', '[)') AS slot_range
     FROM generate_series(
         TIMESTAMPTZ '2026-11-17 08:00+00',
         TIMESTAMPTZ '2026-11-17 13:00+00',
         INTERVAL '1 hour'
-    ) AS gs
+    ) AS series(slot_start)
 )
 SELECT c.charger_id,
        s.slot_start,
