@@ -309,3 +309,8 @@ Run independently in PostgreSQL 14+. Execute Q1-Q8 in order; Q5 attaches the Dec
 
 - [Payment Settlement Reconciliation & Allocation](daily/2026-11-23-payment-settlement-reconciliation.sql) — eight PostgreSQL exercises covering header/detail controls, missing bank/payment events, capture/refund variance, partial settlement, duplicate references, and currency-aware reconciliation.
 - Includes isolated sample tables, commented reference solutions, index candidates, idempotent batch-watermark guidance, and expected spot checks. Run independently in PostgreSQL 14+.
+
+### Daily SQL Practice — 2026-11-23: SIEM Security Incident Correlation
+
+- [Defensive SIEM Event Correlation, Threat Intelligence & Incident SLAs](daily/2026-11-23-siem-security-incident-correlation.sql) — eleven PostgreSQL exercises covering replay-safe event canonicalization, point-in-time asset ownership, ten-minute authentication velocity, failed-login-to-success correlation, effective-dated CIDR threat-intelligence matching, idempotent alert upserts, alert-to-incident sessionization, severity-based MTTA/MTTR SLAs, ingestion-lag percentiles, JSONB/asset data-quality exceptions, and overlapping indicator-window detection.
+- Includes an isolated synthetic SIEM schema with corrected and replayed events, a winning tombstone, late telemetry, an orphan asset, malformed payloads, effective-dated asset ownership, overlapping/expired threat indicators, and incident response cases. Commented reference solutions explain window frames, LATERAL lookups, CIDR containment, ON CONFLICT idempotency, sessionization, indexing trade-offs, and EXPLAIN (ANALYZE, BUFFERS) performance analysis. Run independently in PostgreSQL 14+; execute Q6 before Q7.
