@@ -303,3 +303,9 @@ Run independently in PostgreSQL 14+. Execute Q1-Q8 in order; Q5 attaches the Dec
 
 - [Public Transit GTFS, AVL & APC: Service Reliability and Headway Analytics](daily/2026-11-17-public-transit-gtfs-service-reliability.sql) — ten PostgreSQL exercises covering versioned AVL/APC event canonicalization, route on-time performance, headway bunching and gaps, missed timepoints, dwell/running-time outliers, passenger-load reconstruction, route reliability percentiles, telemetry coverage, APC quality exceptions, and vehicle-block recovery.
 - Includes an isolated synthetic transit schema with replayed/corrected/voided telemetry, a missing stop arrival, an orphan trip, an impossible dwell interval, and passenger-count exceptions. Solutions explain window functions, schedule-spine LEFT JOINs, event canonicalization, ordered-set aggregates, and index/partition trade-offs. Run independently in PostgreSQL 14+.
+
+
+### Daily SQL Practice — 2026-11-23: Payment Settlement Reconciliation
+
+- [Payment Settlement Reconciliation & Allocation](daily/2026-11-23-payment-settlement-reconciliation.sql) — eight PostgreSQL exercises covering header/detail controls, missing bank/payment events, capture/refund variance, partial settlement, duplicate references, and currency-aware reconciliation.
+- Includes isolated sample tables, commented reference solutions, index candidates, idempotent batch-watermark guidance, and expected spot checks. Run independently in PostgreSQL 14+.
