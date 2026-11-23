@@ -737,7 +737,7 @@ VALUES
 --   INCLUDE (source_system, event_type, event_ts);
 --
 -- CREATE INDEX raw_events_payload_gin_idx
---   ON raw_events USING GIN (payload jsonb_path_ops);
+--   ON raw_events USING GIN (payload);
 --
 -- CREATE INDEX incident_cases_sla_idx
 --   ON incident_cases (severity, opened_at DESC)
