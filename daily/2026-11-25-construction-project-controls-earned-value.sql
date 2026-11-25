@@ -443,6 +443,7 @@ WITH approved_baseline AS (
     SELECT DISTINCT ON (project_id) project_id, version_id
     FROM baseline_versions
     WHERE version_status = 'APPROVED'
+      AND approved_at < DATE '2026-11-26'
     ORDER BY project_id, version_no DESC, approved_at DESC
 ),
 baseline_lines AS (
@@ -490,9 +491,8 @@ ranked_source AS (
                ORDER BY correction_no DESC, submitted_at DESC, event_id DESC
            ) AS correction_rank
     FROM progress_events pe
-    JOIN projects p ON p.project_id = (
-        SELECT w.project_id FROM wbs_elements w WHERE w.wbs_id = pe.wbs_id
-    )
+    JOIN wbs_elements w ON w.wbs_id = pe.wbs_id
+    JOIN projects p ON p.project_id = w.project_id
     WHERE pe.as_of_date <= p.report_date
       AND pe.submitted_at < p.report_date + INTERVAL '1 day'
 ),
@@ -770,6 +770,7 @@ WITH approved_baseline AS (
     SELECT DISTINCT ON (project_id) project_id, version_id
     FROM baseline_versions
     WHERE version_status = 'APPROVED'
+      AND approved_at < DATE '2026-11-26'
     ORDER BY project_id, version_no DESC, approved_at DESC
 ),
 month_spine AS (
@@ -854,6 +855,7 @@ latest_approved_baseline AS (
     SELECT DISTINCT ON (project_id) project_id, version_id
     FROM baseline_versions
     WHERE version_status = 'APPROVED'
+      AND approved_at < DATE '2026-11-26'
     ORDER BY project_id, version_no DESC, approved_at DESC
 ),
 baseline_by_wbs AS (
