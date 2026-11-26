@@ -325,3 +325,11 @@ Run independently in PostgreSQL 14+. Execute Q1-Q8 in order; Q5 attaches the Dec
 
 - [Data Center Capacity Planning, Energy Observability & Carbon-Aware Scheduling](daily/2026-11-25-data-center-capacity-carbon-aware-scheduling.sql) — ten PostgreSQL exercises covering replay-safe rack telemetry canonicalization, latest rack utilization and headroom, sustained overload detection, hourly IT/facility energy reconstruction, workload carbon estimates, low-carbon scheduling candidates, rack admission-control checks, workload runtime percentiles, energy anomaly detection, and site-meter reconciliation.
 - Includes an isolated synthetic data-center schema with multiple sites/grid zones, rack capacity, queued/running workloads, replayed and corrected telemetry, a tombstone, site meter intervals, and carbon-intensity forecasts. Solutions explain revision-aware deduplication, window functions, grain-safe pre-aggregation, forecast version selection, partial/composite indexes, and EXPLAIN (ANALYZE, BUFFERS) performance analysis. Run independently in PostgreSQL 14+.
+
+
+### Daily SQL Practice — 2026-11-26: Subscription Coverage Gaps & Overlaps
+
+- [Subscription Coverage Gaps, Overlaps & Point-in-Time Status](daily/2026-11-26-subscription-coverage-gaps-and-overlaps.sql) — PostgreSQL exercises for effective-dated subscription history. Covers half-open interval semantics, adjacent periods, gaps, nested overlaps, point-in-time plan lookup, active-period ambiguity, narrow window projections, and index/constraint strategies.
+- Includes isolated sample data with intentional gap/overlap cases, seven interview follow-ups, and guidance on why a running maximum of prior end dates detects nested overlaps that a simple LAG can miss.
+
+Run independently in PostgreSQL 14+. The setup creates its own subscription_periods table.
