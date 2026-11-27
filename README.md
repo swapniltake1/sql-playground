@@ -333,3 +333,9 @@ Run independently in PostgreSQL 14+. Execute Q1-Q8 in order; Q5 attaches the Dec
 - Includes isolated sample data with intentional gap/overlap cases, seven interview follow-ups, and guidance on why a running maximum of prior end dates detects nested overlaps that a simple LAG can miss.
 
 Run independently in PostgreSQL 14+. The setup creates its own subscription_periods table.
+
+
+### Daily SQL Practice — 2026-11-27: Public Procurement Tender Evaluation & Contract Controls
+
+- [Public Procurement: Tender Evaluation, Contract Controls & Vendor Performance](daily/2026-11-27-public-procurement-tender-evaluation-contract-controls.sql) — ten PostgreSQL exercises covering revision-aware bid canonicalization, tender responsiveness, weighted technical/price scoring, deterministic award ranking, point-in-time vendor registration, approved/pending change-order exposure, PO/receipt/invoice three-way matching, milestone schedule variance, supplier spend concentration, and procurement/payment control exceptions.
+- Includes an isolated synthetic procurement schema with replayed, corrected, and tombstoned bids; vendor registration history; tenders and contracts; change orders; purchase orders, receipts and invoices; milestone and payment data. Solutions explain tombstone-safe window deduplication, EXISTS-based eligibility, window scoring/ranking, grain-safe pre-aggregation, partial/composite indexes, and EXPLAIN (ANALYZE, BUFFERS) performance analysis. Run independently in PostgreSQL 14+.
