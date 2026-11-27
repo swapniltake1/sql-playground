@@ -46,6 +46,7 @@ CREATE TABLE tenders (
     published_at        timestamptz NOT NULL,
     close_at            timestamptz NOT NULL,
     evaluation_due_at   timestamptz NOT NULL,
+    evaluation_completed_at timestamptz,
     budget_amount       numeric(14,2) NOT NULL CHECK (budget_amount > 0),
     technical_weight    numeric(5,4) NOT NULL CHECK (technical_weight BETWEEN 0 AND 1),
     price_weight        numeric(5,4) NOT NULL CHECK (price_weight BETWEEN 0 AND 1),
@@ -163,21 +164,21 @@ INSERT INTO vendor_status_history
 VALUES
 ('V-101','2025-01-01',NULL,'active','low'),
 ('V-102','2025-01-01',NULL,'active','medium'),
-('V-103','2025-01-01','2026-11-01','expired','low'),
-('V-103','2026-11-01',NULL,'active','low'),
+('V-103','2025-01-01','2026-10-20','expired','low'),
+('V-103','2026-10-20',NULL,'active','low'),
 ('V-104','2025-01-01','2026-10-15','suspended','high'),
 ('V-104','2026-10-15',NULL,'active','high'),
 ('V-105','2025-01-01',NULL,'active','medium');
 
 INSERT INTO tenders VALUES
 ('T-IT-01','Secure document platform','IT Services',
- '2026-10-01 09:00+00','2026-10-20 17:00+00','2026-11-05 17:00+00',
+ '2026-10-01 09:00+00','2026-10-20 17:00+00','2026-11-05 17:00+00','2026-11-06 12:00+00',
  250000,0.60,0.40),
 ('T-CW-02','Regional facility upgrade','Construction',
- '2026-10-03 09:00+00','2026-10-22 17:00+00','2026-11-07 17:00+00',
+ '2026-10-03 09:00+00','2026-10-22 17:00+00','2026-11-07 17:00+00','2026-11-07 15:00+00',
  500000,0.50,0.50),
 ('T-OFF-03','Office equipment framework','Office Supplies',
- '2026-10-05 09:00+00','2026-10-25 17:00+00','2026-11-10 17:00+00',
+ '2026-10-05 09:00+00','2026-10-25 17:00+00','2026-11-10 17:00+00','2026-11-10 12:00+00',
  90000,0.30,0.70);
 
 -- Each source_event_id identifies one logical bid submission. Replays and
@@ -568,8 +569,8 @@ invoice_controls AS (
 ),
 contract_controls AS (
     SELECT contract_id,
-           SUM(invoice_amount) FILTER (WHERE invoice_status='approved') AS approved_invoice_amount,
-           SUM(settled_amount) AS settled_amount
+           SUM(invoice_amount) FILTER (WHERE invoice_status IN ('approved','paid')) AS approved_invoice_amount,
+           SUM(settled_amount) FILTER (WHERE invoice_status IN ('approved','paid')) AS settled_amount
     FROM invoice_controls
     GROUP BY contract_id
 )
@@ -578,9 +579,15 @@ SELECT t.tender_id,
            AS publication_window_days,
        EXTRACT(EPOCH FROM (t.evaluation_due_at-t.close_at))/86400.0
            AS evaluation_sla_days,
-       CASE WHEN t.evaluation_due_at < TIMESTAMPTZ '2026-11-27 08:00+00'
-            THEN 'EVALUATION_DEADLINE_PASSED'
-            ELSE 'WITHIN_WINDOW'
+       CASE
+         WHEN t.evaluation_completed_at IS NULL
+          AND t.evaluation_due_at < TIMESTAMPTZ '2026-11-27 08:00+00'
+           THEN 'OVERDUE_OPEN'
+         WHEN t.evaluation_completed_at > t.evaluation_due_at
+           THEN 'COMPLETED_LATE'
+         WHEN t.evaluation_completed_at IS NOT NULL
+           THEN 'COMPLETED_ON_TIME'
+         ELSE 'WITHIN_WINDOW'
        END AS evaluation_deadline_status,
        c.contract_id,
        COALESCE(cc.approved_invoice_amount,0) AS approved_invoice_amount,
@@ -654,7 +661,8 @@ CREATE INDEX ix_pp_milestones_contract_planned
 -- Q1: B-IT-101 keeps revision 2; B-OFF-104 disappears because revision 2 is
 --     a tombstone. The replayed revision 1 does not duplicate the bid.
 -- Q2/Q3: V-104's T-IT-01 bid is non-responsive because mandatory documents fail.
--- Q2: V-103 is active on the tender close date after its 2026-11-01 renewal.
+-- Q2/Q5: V-103's registration renewal starts 2026-10-20, so its 2026-10-24
+--     submission and 2026-10-25 tender close both fall in the active period.
 -- Q7: POL-IT-2 has a unit-price mismatch; POL-CW-1 invoices more than accepted.
 -- Q8: M-CW-1 completed three days late; M-OFF-1 is blocked and overdue.
 -- Q9: reversed and pending payment rows are excluded from settled spend.
